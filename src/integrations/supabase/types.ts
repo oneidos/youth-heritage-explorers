@@ -14,7 +14,387 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          created_at: string
+          guide_id: string
+          id: string
+          itinerary_id: string
+          message: string | null
+          status: string
+          visit_date: string
+          visit_time: string
+          visitor_id: string
+        }
+        Insert: {
+          created_at?: string
+          guide_id: string
+          id?: string
+          itinerary_id: string
+          message?: string | null
+          status?: string
+          visit_date: string
+          visit_time: string
+          visitor_id: string
+        }
+        Update: {
+          created_at?: string
+          guide_id?: string
+          id?: string
+          itinerary_id?: string
+          message?: string | null
+          status?: string
+          visit_date?: string
+          visit_time?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_itinerary_id_fkey"
+            columns: ["itinerary_id"]
+            isOneToOne: false
+            referencedRelation: "itineraries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_visitor_id_fkey"
+            columns: ["visitor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fsl_hours: {
+        Row: {
+          activity_date: string
+          booking_id: string | null
+          created_at: string
+          guide_id: string
+          hours: number
+          id: string
+          note: string | null
+        }
+        Insert: {
+          activity_date?: string
+          booking_id?: string | null
+          created_at?: string
+          guide_id: string
+          hours?: number
+          id?: string
+          note?: string | null
+        }
+        Update: {
+          activity_date?: string
+          booking_id?: string | null
+          created_at?: string
+          guide_id?: string
+          hours?: number
+          id?: string
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fsl_hours_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fsl_hours_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      itineraries: {
+        Row: {
+          city: string
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          guide_id: string
+          id: string
+          meeting_point: string
+          title: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          guide_id: string
+          id?: string
+          meeting_point: string
+          title: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          guide_id?: string
+          id?: string
+          meeting_point?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "itineraries_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      itinerary_stops: {
+        Row: {
+          description: string | null
+          id: string
+          itinerary_id: string
+          position: number
+          title: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          itinerary_id: string
+          position?: number
+          title: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          itinerary_id?: string
+          position?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "itinerary_stops_itinerary_id_fkey"
+            columns: ["itinerary_id"]
+            isOneToOne: false
+            referencedRelation: "itineraries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          accessible_tours: boolean
+          active_role: string
+          age: number | null
+          availability: string | null
+          bio: string | null
+          city: string | null
+          created_at: string
+          display_name: string
+          favorite_places: string | null
+          fsl_enabled: boolean
+          fsl_interested: boolean
+          gender: string | null
+          guide_onboarded: boolean
+          id: string
+          interests: string[]
+          is_demo: boolean
+          languages: string[]
+          school: string | null
+          updated_at: string
+          visitor_onboarded: boolean
+        }
+        Insert: {
+          accessible_tours?: boolean
+          active_role?: string
+          age?: number | null
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string
+          favorite_places?: string | null
+          fsl_enabled?: boolean
+          fsl_interested?: boolean
+          gender?: string | null
+          guide_onboarded?: boolean
+          id: string
+          interests?: string[]
+          is_demo?: boolean
+          languages?: string[]
+          school?: string | null
+          updated_at?: string
+          visitor_onboarded?: boolean
+        }
+        Update: {
+          accessible_tours?: boolean
+          active_role?: string
+          age?: number | null
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string
+          favorite_places?: string | null
+          fsl_enabled?: boolean
+          fsl_interested?: boolean
+          gender?: string | null
+          guide_onboarded?: boolean
+          id?: string
+          interests?: string[]
+          is_demo?: boolean
+          languages?: string[]
+          school?: string | null
+          updated_at?: string
+          visitor_onboarded?: boolean
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          author_name: string | null
+          booking_id: string | null
+          comment: string | null
+          created_at: string
+          guide_id: string
+          id: string
+          rating: number
+          visitor_id: string
+        }
+        Insert: {
+          author_name?: string | null
+          booking_id?: string | null
+          comment?: string | null
+          created_at?: string
+          guide_id: string
+          id?: string
+          rating: number
+          visitor_id: string
+        }
+        Update: {
+          author_name?: string | null
+          booking_id?: string | null
+          comment?: string | null
+          created_at?: string
+          guide_id?: string
+          id?: string
+          rating?: number
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_guide_id_fkey"
+            columns: ["guide_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_visitor_id_fkey"
+            columns: ["visitor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stamps: {
+        Row: {
+          awarded_at: string
+          booking_id: string | null
+          city: string
+          id: string
+          itinerary_title: string | null
+          visitor_id: string
+        }
+        Insert: {
+          awarded_at?: string
+          booking_id?: string | null
+          city: string
+          id?: string
+          itinerary_title?: string | null
+          visitor_id: string
+        }
+        Update: {
+          awarded_at?: string
+          booking_id?: string | null
+          city?: string
+          id?: string
+          itinerary_title?: string | null
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stamps_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stamps_visitor_id_fkey"
+            columns: ["visitor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      visit_photos: {
+        Row: {
+          booking_id: string
+          created_at: string
+          id: string
+          storage_path: string
+          visitor_id: string
+        }
+        Insert: {
+          booking_id: string
+          created_at?: string
+          id?: string
+          storage_path: string
+          visitor_id: string
+        }
+        Update: {
+          booking_id?: string
+          created_at?: string
+          id?: string
+          storage_path?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visit_photos_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "visit_photos_visitor_id_fkey"
+            columns: ["visitor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
